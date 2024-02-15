@@ -10,7 +10,8 @@ This project was made in Python 3.10 hence, It may not work well in the latest v
 ----
 **Notes:**  
 1.For storing the datas i used excel sheet insted of database for simple understaing for beginners
-	2.Multiple copies of books are managed by book id and no seperate feature to multiple copies of book
+
+2.Multiple copies of books are managed by book id and no seperate feature to multiple copies of book
 	
 ---
 
