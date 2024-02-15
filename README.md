@@ -19,7 +19,7 @@ This project was made in Python 3.10 hence, It may not work well in the latest v
 Execute the following commands in command prompt (CMD)
 
 To install packages:
-          ```pip install -r requirements. txt```
+          ```pip install -r requirements.txt```
 		  
 To run the application:
           ```python main.py```
