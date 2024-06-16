@@ -10,7 +10,7 @@ def Unregister_Book():
     print("Enter the book you want to unregister currently available in library!!")
     while True:
         B_num=GetBookID()
-        print("Entered: ",B_num)
+        if B_num==-1: print("Exiting...."); return
         result, Selected_Book, db= BookIDCheckInDB(B_num)
         if (result==1):
             break

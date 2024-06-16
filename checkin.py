@@ -1,34 +1,36 @@
 #returning the book!!!
-import config
 import pandas as pd
 from operations import GetBookID,confirmation
 from datetime import datetime, timedelta
 from main import Menu
-
-max_fine_rate=config.Max_Fine_Rate
-
+import config
+fine_rate_per_day=config.Fine_Rate_Per_Day
 def CheckIn_Book():
 
     print("\n\t\tBook CheckIn!!\n\n")
 
     print("Enter the book you want to checkin into the library!!")
+    db=pd.read_excel("database/db.xlsx",sheet_name="Books")
 
+    DBBooksID=db['ID'].tolist()
     while True:
         B_num=GetBookID()
-        break
+        if (B_num in DBBooksID):
+            print("ID was founded in database!")
+            break
+        else:
+            print("ID was not founded in database!")
     
     print("Entered: ",B_num)
 
-    db=pd.read_excel("database/db.xlsx",sheet_name="Books")
-
-    DBBooksID=db['ID'].tolist() #or "db.ID" and for ".tolist" get every element in ID column as list, db[db['ID'].isin([B_num])] return boolean
+ #or "db.ID" and for ".tolist" get every element in ID column as list, db[db['ID'].isin([B_num])] return boolean
     if (B_num in DBBooksID):
-        print("ID was founded in database!")
         Selected_Book = db[db['ID'] == B_num] #selecting the book #get details in the specific rows, It is the selected book using id
         if (Selected_Book['Status'].values[0]=='Checked Out'):
-
+            print("Given Book ID is checked out condition is true!")
             FineAmt=Selected_Book['Fine'].values[0]
             OldDueDate=Selected_Book['Due Date'].values[0]
+            Price=Selected_Book['Price'].values[0]
             today = datetime.now().date()
 
 
@@ -72,7 +74,7 @@ def CheckIn_Book():
                                 print("\nInvalid Input. You have to enter valid percentage from 1 to 100!")
                         else:
                             print("\nInvalid Input. Please enter a valid integer")
-                    DamageFine = DamageRate * max_fine_rate
+                    DamageFine = (DamageRate * Price)/100
                     print("Fine amount for book damage: ",DamageFine)
 
                 else:

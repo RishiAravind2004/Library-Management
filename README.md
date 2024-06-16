@@ -7,6 +7,8 @@ This project manages and validates the books in the library.
 
 This project was made in Python 3.10 hence, It may not work well in the latest versions of python and some edit may be required.
 
+![alt text](image.png)
+
 ----
 **Notes:**  
 1.For storing the datas i used excel sheet insted of database for simple understaing for beginners

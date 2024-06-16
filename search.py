@@ -76,6 +76,7 @@ def search_Author():
 
     author_data=db[['Author']]
     search_author_name=input("Enter the author name: ")
+    if search_author_name.lower() in ("-1", "exit"): print("Exiting...."); return
 
     # Check if the entered author name is present in the DataFrame (partial match)
     matching_authors = db[db['Author'].str.contains(search_author_name, case=False)]
@@ -94,6 +95,7 @@ def search_BName():
 
     author_data=db[['Name']]
     search_book_name=input("Enter the book name: ")
+    if search_book_name.lower() in ("-1", "exit"): print("Exiting...."); return
 
     # Check if the entered book name is present in the DataFrame (partial match)
     matching_books = db[db['Name'].str.contains(search_book_name, case=False)]
@@ -110,11 +112,19 @@ def Display_Book(req_data):
     # Print the matching rows
     print("\nMatching datas from database:")
     print("\n")
-    print(tabulate(req_data, 
-        headers=req_data.columns, 
-        tablefmt='fancy_grid',
-        showindex=False)
-    )
+    if req_data.empty:
+        print('\n######################################')
+        print('\nNo Matching Data Found In DataBase!\n')
+        print('\n######################################')
+    else:
+        print("Here the list! ")
+        print("\n")
+        print(tabulate(req_data, 
+                headers=req_data.columns, 
+                tablefmt='fancy_grid',
+                showindex=False)
+        )
+    press_any_key_to_continue()
     return
 
 if __name__=="__main__":

@@ -8,6 +8,7 @@ BookIDLength=config.BookIDLength
 #this def is used to get input from user for book id
 def GetBookID():
 ##    B_num=input("\nEnter the Book ID: ")
+##    if B_num.lower() in ("-1", "exit"): print("Exiting...."); return -1
 ##    if B_num.isdigit():
 ##        length= len(str(B_num))
 ##        B_num=int(B_num)
@@ -23,6 +24,7 @@ def GetBookID():
     #OR
     try:
         B_num=int(input("\nEnter the Book ID: "))
+        if B_num==-1: print("Exiting...."); return -1
         if (len(str(B_num)) == BookIDLength):
             return B_num
         else:
@@ -93,4 +95,4 @@ def press_any_key_to_continue():
 
 
 if __name__=="__main__":
-    press_any_key_to_continue()
+    GetBookID()

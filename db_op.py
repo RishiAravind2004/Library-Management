@@ -21,6 +21,7 @@ def create_database():
         'Author': [],
         'Status': [],
         'RegDate': [],
+        'Price': [],
         
         'Fine': [],
         'CheckedOut Date': [],
@@ -44,36 +45,46 @@ def create_database():
     return
 
 
-def Reg_New_Book_DB(BooID, BookName, BookAuthor):
+def Reg_New_Book_DB(BooID, BookName, BookAuthor, BookPrice):
+    # Import necessary libraries
+    from datetime import datetime
+    import pandas as pd
 
-
-    #Current Time
+    # Current Time
     current_date = datetime.now()
 
-    #accessing DB
+    # Accessing DB
     db = pd.read_excel(db_path, sheet_name='Books')
-    
+
     # Create a DataFrame with the new values
-    data = {'ID':[BooID],
-            'Name':[BookName],
-            'Author':[BookAuthor],
-            'Status':["Available"],
-            'RegDate':[current_date.strftime("%d-%m-%Y")]
+    data = {'ID': [BooID],
+            'Name': [BookName],
+            'Author': [BookAuthor],
+            'Status': ["Available"],
+            'RegDate': [current_date.strftime("%d-%m-%Y")],
+            'Price': [BookPrice]
             }
     new_data_df = pd.DataFrame(data)
 
-    # Append the new data to the existing DataFrame
+    # Check for empty or all-NA columns in the new data DataFrame
+    non_empty_columns_new = new_data_df.columns[new_data_df.notna().any()].tolist()
+    new_data_df = new_data_df[non_empty_columns_new]
 
+    # Check for empty or all-NA columns in the existing DataFrame
+    non_empty_columns_db = db.columns[db.notna().any()].tolist()
+    db = db[non_empty_columns_db]
+
+    # Append the new data to the existing DataFrame
     New_Combined_df = pd.concat([db, new_data_df], ignore_index=True)
 
-    
     # Write the combined DataFrame back to the Excel file
-    with pd.ExcelWriter(db_path, engine='openpyxl', mode='a',if_sheet_exists="replace") as writer: #if_sheet_exists="replace,new,overlay"
+    with pd.ExcelWriter(db_path, engine='openpyxl', mode='a', if_sheet_exists="replace") as writer:
         New_Combined_df.to_excel(writer, sheet_name='Books', index=False)
 
     print("New Books information datas are added to Database!!")
 
     return
+
 
 
 def UnReg_Book_DB(B_num,db):
@@ -138,6 +149,7 @@ def CheckOut_Book_DB(B_num, new_details):
         
         # Update the selected book's details with the new details
         for key, value in new_details.items():
+            value = str(value)
             db.loc[selected_book_index[0], key] = value
         
         # Save the modified DataFrame back to the database file

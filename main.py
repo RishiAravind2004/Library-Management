@@ -81,6 +81,7 @@ def Menu():
 
         elif (choice == 9):
             print("\nChoosed Exit!")
+            Run=False
 
         else:
             print("\nNo Valid Choice!")
@@ -93,6 +94,7 @@ def GetChoice():
 
     try:
         ch = input("\nEnter Your choice: ")
+        if ch.lower() in ("-1", "exit"): print("Exiting...."); exit()
         ch=int(ch)
         if 0 < ch < 10:
             return ch

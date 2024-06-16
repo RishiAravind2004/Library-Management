@@ -9,6 +9,7 @@ def CheckOut_Book():
     print("Enter the book you want to checkout from library!!")
     while True:
         B_num=GetBookID()
+        if B_num==-1: print("Exiting...");return
         print("Entered: ",B_num)
         result, Selected_Book, db= BookIDCheckInDB(B_num)
         if (result==1):
@@ -25,8 +26,10 @@ def CheckOut_Book():
             #getting checkouter details
             print("\nCheckOuter's Details!")
             Member_Name=input("\nPerson's Name: ").title()
+            if Member_Name.lower() in ("-1", "exit"): print("Exiting...."); return
             Member_No=Get_Mobile_Num()
             Member_Address=input("Person's Address: ").title()
+            if Member_Address.lower() in ("-1", "exit"): print("Exiting...."); return
 
             print("Checking Book with person\'s detail")
             print("\nBook Information\n")
@@ -82,10 +85,11 @@ def Get_Mobile_Num():
     #OR
     try:
         M_num=int(input("Person's Mobile Number: "))
+        if M_num==-1: print("Exiting...."); return
         if (len(str(M_num)) == 10):
             return M_num
         else:
-            print(f"\nInvalid Input. You have entered mobile length of {len(str(M_num))}. Please enter the book number lenth of 10.")
+            print(f"\nInvalid Input. You have entered mobile length of {len(str(M_num))}. Please enter the mobile number lenth of 10.")
             return Get_Mobile_Num()
     except ValueError:
         print("\nInvalid Input. Please enter a valid integer")

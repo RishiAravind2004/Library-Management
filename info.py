@@ -27,6 +27,7 @@ def Book_Info():
             print("Book's ID: ", int(Selected_Book['ID'].values[0]))
             print("Book's Name: ", Selected_Book['Name'].values[0])
             print("Book's Author Name: ", Selected_Book['Author'].values[0])
+            print("Book's Price: ", Selected_Book['Price'].values[0])
             print("Status: ", Selected_Book['Status'].values[0])
             print("Registered Date: ", str(Selected_Book['RegDate'].values[0]))
 
@@ -37,6 +38,7 @@ def Book_Info():
             print("Book's ID: ", int(Selected_Book['ID'].values[0]))
             print("Book's Name: ", Selected_Book['Name'].values[0])
             print("Book's Author Name: ", Selected_Book['Author'].values[0])
+            print("Book's Price: ", Selected_Book['Price'].values[0])
             print("Status: ", Selected_Book['Status'].values[0])
             print("Registered Date: ", str(Selected_Book['RegDate'].values[0]))
             print("Checked Out Date: ", Selected_Book['CheckedOut Date'].values[0])
@@ -63,9 +65,9 @@ def Book_Info():
         print("Still do you want to check information for any other book?")
         result=confirmation()
         if(result==1):
-            Book_Info()
+            return Book_Info()
         else:
-           return
+            return
 
 if __name__=="__main__":
     Book_Info()
